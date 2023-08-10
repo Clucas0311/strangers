@@ -12,3 +12,41 @@ export const fetchAllPost = async () => {
     console.error("Error /GET Posts", error);
   }
 };
+
+export const registerUser = async (username, password) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user: {
+          username,
+          password,
+        },
+      }),
+    });
+    const result = await response.json();
+    console.log("REGISTER USER----->", result);
+  } catch (error) {
+    console.error("There was /POST Registering User", error);
+  }
+};
+
+export const loginUser = async (username, password) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user: {
+          username,
+          password,
+        },
+      }),
+    });
+    const result = await response.json();
+    console.log("Login USER----->", result);
+  } catch (error) {
+    console.error("There was /POST Logging in User", error);
+  }
+};
