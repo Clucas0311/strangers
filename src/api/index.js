@@ -27,6 +27,7 @@ export const registerUser = async (username, password) => {
     });
     const result = await response.json();
     console.log("REGISTER USER----->", result);
+    return result;
   } catch (error) {
     console.error("There was /POST Registering User", error);
   }
@@ -46,6 +47,7 @@ export const loginUser = async (username, password) => {
     });
     const result = await response.json();
     console.log("Login USER----->", result);
+    return result;
   } catch (error) {
     console.error("There was /POST Logging in User", error);
   }
