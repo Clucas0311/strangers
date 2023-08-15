@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchAllPost } from "./api";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import Posts from "./components/Posts";
 import Home from "./components/Home";
@@ -11,6 +11,8 @@ const App = () => {
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || null
   );
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllPost = async () => {
@@ -28,6 +30,11 @@ const App = () => {
     }
   }, [token]);
 
+  const logOut = () => {
+    setToken(null);
+    navigate("/");
+  };
+
   return (
     <div className="container">
       <nav className="ui secondary menu">
@@ -38,12 +45,21 @@ const App = () => {
           Posts
         </Link>
         <div className="right menu">
-          <Link className="item" to="/account/login">
-            Login
-          </Link>
-          <Link className="item" to="/account/register">
-            Sign up
-          </Link>
+          {token ? (
+            <button className="item" onClick={logOut}>
+              {" "}
+              Log Out
+            </button>
+          ) : (
+            <>
+              <Link className="item" to="/account/login">
+                Login
+              </Link>
+              <Link className="item" to="/account/register">
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
       </nav>
       <Routes>
